@@ -1,42 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Produto } from '../model/Produto';
-import {ProdutosService} from '../service/produtos.service'
+import { Produtos } from '../model/Produtos';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostagemService {
+export class ProdutosService {
 
-  // todo modulo criado colocar dentro do parenteses do construtor
-  constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  /* 
-  
-  CRUD - Create = get, Read = post, Update = put e Delete = delete
-  */
+  getAllProdutos() {
+    return this.http.get('http://31.220.57.121:9080/produtos/');
+  }
 
-  // importar modulo de HTTP
+  postProdutos(produto: Produtos) {
+    return this.http.post('http://31.220.57.121:9080/produtos/', produto)
+  }
 
-getAllProduto()
-{
-  return this.http.get('http://31.220.57.121:9080/produtos/')
+  putProduto(produto: Produtos) {
+
+    return this.http.put('http://31.220.57.121:9080/produtos/', produto)
+  }
+
+  getByIdProduto(id: number) {
+    return this.http.get(`http://31.220.57.121:9080/produtos/${id}`)
+  }
+
+  deleteProduto(id: number) {
+    return this.http.delete(`http://31.220.57.121:9080/produtos/${id}`)
+  }
+
+  findByProduto(NomeProduto: string) {
+    return this.http.get(`http://31.220.57.121:9080/produtos/nome/${NomeProduto}`)
+  }
+
 }
-
-getByIdProduto(id:number)
-{
-  return this.http.get(`http://31.220.57.121:9080/produtos/${id}`)
-}
-
-}
-
-postProduto(produto: Produto){
-  return this.http.post('http://31.220.57.121:9080/produtos/', produto)
-}
-
-putProduto(produto: Produto)
-{
-  return this.http.put('http://31.220.57.121:9080/produtos/', produto)
-}
-
-

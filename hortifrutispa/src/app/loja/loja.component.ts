@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Produto } from '../model/Produto';
+import { ProdutosService } from '../service/produtos.service';
+import { Produtos } from '../model/Produtos';
 
 @Component({
   selector: 'app-loja',
@@ -8,28 +9,33 @@ import { Produto } from '../model/Produto';
 })
 export class LojaComponent implements OnInit {
 
-  key = 'data';
-  reverse = true;
+  listaProdutos: Produtos[]
+  produto: Produtos = new Produtos
 
-  listaProdutos: Produto []
-
-  produto: Produto = new Produto ()
+  NomeProduto: string
 
   constructor(private produtosService: ProdutosService) { }
 
-  ngOnInit(): void {
-    this.findAllProduto()
+  ngOnInit() {
+    this.findAllProdutos()
   }
 
-  findAllProduto ()
-  {
-    this.produtosService.getAllProduto().subscribe((resp: Produto[])=>{this.listaProdutos = resp})
+  findAllProdutos() {
+    this.produtosService.getAllProdutos().subscribe((resp: Produtos[]) => {
+      this.listaProdutos = resp
+    })
   }
-  
-  salvar()
-  {
-    this.produtosService.putPostagem(this.produto).subscribe((resp: Produto)=>{this.produto = resp})
-    this.router.navigate(['/loja'])
-    location.assign('/loja')
+
+  cadastrarProduto() {
+    this.produtosService.postProdutos(this.produto).subscribe((resp: Produtos) => {
+      this.produto = resp
+      location.assign('/loja')
+    })
+  }
+
+  pesquisarPorNomeProduto() {
+    this.produtosService.findByProduto(this.NomeProduto).subscribe((resp: Produtos[]) => {
+      this.listaProdutos = resp
+    })
   }
 }

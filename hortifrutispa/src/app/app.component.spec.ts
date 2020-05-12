@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'hortifrutispa'`, () => {
+  it(`should have as title 'hortifruti'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('hortifrutispa');
+    expect(app.title).toEqual('hortifruti');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('hortifrutispa app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('hortifruti app is running!');
   });
 });
